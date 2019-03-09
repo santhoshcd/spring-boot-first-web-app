@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,11 @@ public class TodoController {
     }
 
     @PostMapping(value="",headers="Accept=application/json")
-    public ResponseEntity<Todo> create(@RequestBody Todo todo){
+    public ResponseEntity<Todo> create(@Valid @RequestBody Todo todo, BindingResult result){
+        System.out.println(result.hasErrors());
+        if(result.hasErrors()){
+            return new ResponseEntity<Todo>(HttpStatus.BAD_REQUEST);
+        }
         todoService.createTodo(todo);
         return new ResponseEntity<Todo>(HttpStatus.OK);
     }

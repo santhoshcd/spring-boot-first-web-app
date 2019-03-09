@@ -3,13 +3,27 @@ package com.example.springbootweb.springbootfirstwebapp.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Todo {
+//    @Min(value = 1, message = "Id can't be less than 1 or bigger than 999")
+//    @Max(999)
     private int id;
+
+    @Size(min=5, message="Enter at least 5 characters...")
     private String user;
+
+    @Size(min=5, message="Enter at least 5 characters...")
     private String desc;
+
+    @NotNull
     private Date targetDate;
+
+    @NotNull
     private boolean isDone;
 
     public Todo() {}
